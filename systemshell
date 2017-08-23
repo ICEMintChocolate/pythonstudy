@@ -1,10 +1,10 @@
 #!/usr/bin/python
 #coding=utf-8
-import os
-import time
 '''
 Determine whether ports and processes exist, and that ports are open states
 '''
+import os
+import time
 nowtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 list = [('discovery','8761'),('gateway','9000'),('config-server','8888'),('server-info','10002'),('server-user','10007'),('server-product','10006')]
 for i in list:
@@ -16,4 +16,3 @@ for i in list:
         print "%s %s is ok" %(nowtime,i[0])
     else:
         print "%s %s is down" %(nowtime,i[0])
-
