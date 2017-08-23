@@ -1,0 +1,19 @@
+#!/usr/bin/python
+#coding=utf-8
+import os
+import time
+'''
+Determine whether ports and processes exist, and that ports are open states
+'''
+nowtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+list = [('discovery','8761'),('gateway','9000'),('config-server','8888'),('server-info','10002'),('server-user','10007'),('server-product','10006')]
+for i in list:
+    server = i[0]
+    port = i[1]
+    test = os.popen("ps -ef | grep -v grep | grep %s  | awk '{print $12}' " %server ).read().split("\n")[0]
+    ports = os.popen("nmap 127.0.0.1 -p  %s | grep tcp | awk '{print $2}' " %port ).read().split("\n")[0]
+    if i[0] in test and "open" == ports:
+        print "%s %s is ok" %(nowtime,i[0])
+    else:
+        print "%s %s is down" %(nowtime,i[0])
+
